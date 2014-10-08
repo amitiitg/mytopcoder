@@ -66,13 +66,19 @@ virtual LonglongestPathTree::~LonglongestPathTree()
     _root = NULL;
 }
 
+int maxD = -1;
 int LonglongestPathTree::find_diameter(Node *root)
 {
-    if(!root) return 0;
+    vector<int> maxDs;
 
+    if(!root) return 0;
+    
     for(map<Node*, int>::const_iterator itr=root->_adjs.begin(); itr!=root->_adjs.end(); itr++) 
     {
-
+        maxDs.push_back(find_diameter(itr->first) + itr->second);
     }
+
+    maxD = std::max(maxD, maxDs.max_element());
+    return maxDs.max_element();
 }
 
